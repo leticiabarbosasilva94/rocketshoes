@@ -31,6 +31,7 @@ module.exports = {
       'warn',
       { extensions: ['.js', '.jsx'] }
     ],
-    'import/prefer-default-export': 0
+    'import/prefer-default-export': 0,
+    'no-console': ['error', {allow: ['tron']}]
   },
 };
