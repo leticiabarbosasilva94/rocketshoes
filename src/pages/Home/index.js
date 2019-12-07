@@ -1,142 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
+import axios from '../../services/axios';
 import { ProductList } from './styled';
+import { formatPrice } from '../../utils/formats';
 
 export default function Home() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axios.get('/products');
+      const data = response.data.map(p => ({
+        ...p,
+        formatedPrice: formatPrice(p.price)
+      }));
+      setProducts(data);
+    }
+
+    getData();
+  }, []);
+
   return (
     <ProductList>
-      <li>
-        <img
-          // src="https://www.todoespacoonline.com/w/wp-content/uploads/2017/10/camiseta-pearl-jam-alive-masculina-capa.jpg"
-          src="https://www.todoespacoonline.com/w/wp-content/uploads/2018/06/camiseta-engenheiros-somos-quem-podemos-ser-masculina-capa-300x300.jpg"
-          alt="Tenis"
-        />
-        <strong>
-          Tênis muito legal Tênis muito legalTênis muito legalTênis muito
-          legalTênis muito legal
-        </strong>
-        <span>R$ 129,90</span>
+      {products.map(product => (
+        <li key={String(product.id)}>
+          <img src={product.image} alt={product.title} />
+          <strong>{product.title}</strong>
+          <span>{product.formatedPrice}</span>
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3
-          </div>
+          <button type="button">
+            <div>
+              <MdAddShoppingCart size={16} color="#FFF" /> 3
+            </div>
 
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-olympikus-attract/20/D22-1787-120/D22-1787-120_zoom1.jpg"
-          alt="Tenis"
-        />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" />
-          </div>
-
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-olympikus-attract/20/D22-1787-120/D22-1787-120_zoom1.jpg"
-          alt="Tenis"
-        />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" />
-          </div>
-
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-olympikus-attract/20/D22-1787-120/D22-1787-120_zoom1.jpg"
-          alt="Tenis"
-        />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" />
-          </div>
-
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-olympikus-attract/20/D22-1787-120/D22-1787-120_zoom1.jpg"
-          alt="Tenis"
-        />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" />
-          </div>
-
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-olympikus-attract/20/D22-1787-120/D22-1787-120_zoom1.jpg"
-          alt="Tenis"
-        />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" />
-          </div>
-
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-olympikus-attract/20/D22-1787-120/D22-1787-120_zoom1.jpg"
-          alt="Tenis"
-        />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" />
-          </div>
-
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-olympikus-attract/20/D22-1787-120/D22-1787-120_zoom1.jpg"
-          alt="Tenis"
-        />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" />
-          </div>
-
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
+            <span>Adicionar ao carrinho</span>
+          </button>
+        </li>
+      ))}
     </ProductList>
   );
 }
