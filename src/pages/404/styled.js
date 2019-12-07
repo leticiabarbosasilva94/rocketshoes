@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.main`
-  margin: auto;
-  min-height: 100vh;
+  padding: 30px;
+  background: #fff;
+  margin: 40px auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
+  border-radius: 4px;
 `;
 export const Title = styled.h1`
   font-size: 4rem;
