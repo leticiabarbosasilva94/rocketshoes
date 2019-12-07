@@ -32,6 +32,7 @@ module.exports = {
       { extensions: ['.js', '.jsx'] }
     ],
     'import/prefer-default-export': 0,
-    'no-console': ['error', {allow: ['tron']}]
+    'no-console': ['error', {allow: ['tron']}],
+    'no-param-reassign': 0
   },
 };
