@@ -5,9 +5,16 @@ export function removeFromCart(index) {
   };
 }
 
-export function addToCart(product) {
+export function addToCartRequest(product) {
   return {
-    type: 'ADD_TO_CART',
+    type: 'ADD_TO_CART_REQUEST',
+    product
+  };
+}
+
+export function addToCartSuccess(product) {
+  return {
+    type: 'ADD_TO_CART_SUCESS',
     product
   };
 }

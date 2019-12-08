@@ -32,7 +32,7 @@ export default function Home() {
   }, []);
 
   function handleAddToCart(product) {
-    dispatch(cartActions.addToCart(product));
+    dispatch(cartActions.addToCartRequest(product));
   }
 
   return (

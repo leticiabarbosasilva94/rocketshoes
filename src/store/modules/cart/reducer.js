@@ -1,6 +1,6 @@
 export default function cart(state = [], action) {
   switch (action.type) {
-    case 'ADD_TO_CART': {
+    case 'ADD_TO_CART_SUCESS': {
       const product = { ...action.product, amount: 1 };
       let newState = [...state];
 
