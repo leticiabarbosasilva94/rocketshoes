@@ -5,6 +5,7 @@ import {
   MdRemoveCircleOutline
 } from 'react-icons/md';
 import { useSelector, useDispatch } from 'react-redux';
+import * as cartActions from '../../store/modules/cart/actions';
 
 import { Container, Total, ProductTable } from './styled';
 
@@ -13,10 +14,19 @@ export default function Cart() {
   const dispatch = useDispatch();
 
   function handleDelete(product, index) {
-    dispatch({
-      type: 'REMOVE_FROM_CART',
-      index
-    });
+    dispatch(cartActions.removeFromCart(index));
+  }
+
+  function handleIncrementAmount(index, amount) {
+    // if (amount <= 1) return;
+    amount += 1;
+    dispatch(cartActions.updateAmount(index, amount));
+  }
+
+  function handleDecrementAmount(index, amount) {
+    if (amount <= 1) return;
+    amount -= 1;
+    dispatch(cartActions.updateAmount(index, amount));
   }
 
   return (
@@ -43,11 +53,17 @@ export default function Cart() {
               </td>
               <td>
                 <div>
-                  <button type="button">
+                  <button
+                    onClick={() => handleDecrementAmount(index, product.amount)}
+                    type="button"
+                  >
                     <MdRemoveCircleOutline size={20} color="#7159c1" />
                   </button>
                   <input type="number" readOnly value={product.amount} />
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() => handleIncrementAmount(index, product.amount)}
+                  >
                     <MdAddCircleOutline size={20} color="#7159c1" />
                   </button>
                 </div>

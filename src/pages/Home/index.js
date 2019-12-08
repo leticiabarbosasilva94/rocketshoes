@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import axios from '../../services/axios';
 import { ProductList } from './styled';
 import { formatPrice } from '../../utils/formats';
+import * as cartActions from '../../store/modules/cart/actions';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -23,10 +24,7 @@ export default function Home() {
   }, []);
 
   function handleAddToCart(product) {
-    dispatch({
-      type: 'ADD_TO_CART',
-      product
-    });
+    dispatch(cartActions.addToCart(product));
   }
 
   return (
