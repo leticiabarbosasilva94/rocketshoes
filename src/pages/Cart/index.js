@@ -13,13 +13,17 @@ import { Container, Total, ProductTable } from './styled';
 export default function Cart() {
   const cart = useSelector(state =>
     state.cart.map(product => {
-      product.subtotal = formatPrice(product.price * product.amount);
-      return product;
+      return {
+        ...product,
+        subtotal: formatPrice(product.price * product.amount)
+      };
     })
   );
+
   const total = formatPrice(
     cart.reduce((sum, product) => sum + product.price * product.amount, 0)
   );
+
   const dispatch = useDispatch();
 
   function handleDelete(product, index) {
