@@ -31,7 +31,13 @@ export default function cart(state = [], action) {
 
     case 'UPDATE_AMOUNT': {
       const newState = [...state];
-      newState[action.index].amount = action.amount;
+      const newAction = { ...action };
+
+      const { amount } = newAction;
+
+      if (amount <= 0) return newState;
+
+      newState[action.index].amount = amount;
       return newState;
     }
 

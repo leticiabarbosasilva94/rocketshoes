@@ -6,11 +6,20 @@ import {
 } from 'react-icons/md';
 import { useSelector, useDispatch } from 'react-redux';
 import * as cartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../utils/formats';
 
 import { Container, Total, ProductTable } from './styled';
 
 export default function Cart() {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector(state =>
+    state.cart.map(product => {
+      product.subtotal = formatPrice(product.price * product.amount);
+      return product;
+    })
+  );
+  const total = formatPrice(
+    cart.reduce((sum, product) => sum + product.price * product.amount, 0)
+  );
   const dispatch = useDispatch();
 
   function handleDelete(product, index) {
@@ -18,13 +27,11 @@ export default function Cart() {
   }
 
   function handleIncrementAmount(index, amount) {
-    // if (amount <= 1) return;
     amount += 1;
     dispatch(cartActions.updateAmount(index, amount));
   }
 
   function handleDecrementAmount(index, amount) {
-    if (amount <= 1) return;
     amount -= 1;
     dispatch(cartActions.updateAmount(index, amount));
   }
@@ -69,7 +76,7 @@ export default function Cart() {
                 </div>
               </td>
               <td>
-                <strong>{product.formatedPrice}</strong>
+                <strong>{product.subtotal}</strong>
               </td>
               <td>
                 <button
@@ -89,7 +96,7 @@ export default function Cart() {
 
         <Total>
           <span>TOTAL</span>
-          <strong>R$1920,20</strong>
+          <strong>{total}</strong>
         </Total>
       </footer>
     </Container>
