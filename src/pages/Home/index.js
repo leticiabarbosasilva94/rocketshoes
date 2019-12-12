@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from '../../services/axios';
@@ -31,9 +31,12 @@ export default function Home() {
     getData();
   }, []);
 
-  function handleAddToCart(product, index) {
-    dispatch(cartActions.addToCartRequest(product, index));
-  }
+  const handleAddToCart = useCallback(
+    (product, index) => {
+      dispatch(cartActions.addToCartRequest(product, index));
+    },
+    [dispatch]
+  );
 
   return (
     <ProductList>
