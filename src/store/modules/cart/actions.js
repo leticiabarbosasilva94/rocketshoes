@@ -5,10 +5,11 @@ export function removeFromCart(index) {
   };
 }
 
-export function addToCartRequest(product) {
+export function addToCartRequest(product, index) {
   return {
     type: 'ADD_TO_CART_REQUEST',
-    product
+    product,
+    index
   };
 }
 
@@ -19,9 +20,18 @@ export function addToCartSuccess(product) {
   };
 }
 
-export function updateAmount(index, amount) {
+export function updateAmountRequest(index, amount, product) {
   return {
-    type: 'UPDATE_AMOUNT',
+    type: 'UPDATE_AMOUNT_REQUEST',
+    index,
+    amount,
+    product
+  };
+}
+
+export function updateAmountSuccess(index, amount) {
+  return {
+    type: 'UPDATE_AMOUNT_SUCCESS',
     index,
     amount
   };

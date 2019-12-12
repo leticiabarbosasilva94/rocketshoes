@@ -30,14 +30,14 @@ export default function Cart() {
     dispatch(cartActions.removeFromCart(index));
   }
 
-  function handleIncrementAmount(index, amount) {
+  function handleIncrementAmount(index, amount, product) {
     amount += 1;
-    dispatch(cartActions.updateAmount(index, amount));
+    dispatch(cartActions.updateAmountRequest(index, amount, product));
   }
 
-  function handleDecrementAmount(index, amount) {
+  function handleDecrementAmount(index, amount, product) {
     amount -= 1;
-    dispatch(cartActions.updateAmount(index, amount));
+    dispatch(cartActions.updateAmountRequest(index, amount, product));
   }
 
   return (
@@ -65,7 +65,9 @@ export default function Cart() {
               <td>
                 <div>
                   <button
-                    onClick={() => handleDecrementAmount(index, product.amount)}
+                    onClick={() =>
+                      handleDecrementAmount(index, product.amount, product)
+                    }
                     type="button"
                   >
                     <MdRemoveCircleOutline size={20} color="#7159c1" />
@@ -73,7 +75,9 @@ export default function Cart() {
                   <input type="number" readOnly value={product.amount} />
                   <button
                     type="button"
-                    onClick={() => handleIncrementAmount(index, product.amount)}
+                    onClick={() =>
+                      handleIncrementAmount(index, product.amount, product)
+                    }
                   >
                     <MdAddCircleOutline size={20} color="#7159c1" />
                   </button>

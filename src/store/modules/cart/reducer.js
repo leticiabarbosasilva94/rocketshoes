@@ -1,25 +1,10 @@
 export default function cart(state = [], action) {
   switch (action.type) {
     case 'ADD_TO_CART_SUCESS': {
-      const product = { ...action.product, amount: 1 };
-      let newState = [...state];
+      const product = { ...action.product };
+      const newState = [...state];
 
-      const productInCart = newState.filter(stateProduct => {
-        return product.id === stateProduct.id;
-      });
-
-      if (productInCart.length < 1) {
-        newState.push(product);
-      } else {
-        newState = newState.map(p => {
-          if (product.id === p.id) {
-            p.amount += 1;
-          }
-
-          return p;
-        });
-      }
-
+      newState.push(product);
       return newState;
     }
 
@@ -29,7 +14,7 @@ export default function cart(state = [], action) {
       return newState;
     }
 
-    case 'UPDATE_AMOUNT': {
+    case 'UPDATE_AMOUNT_SUCCESS': {
       const newState = [...state];
       const newAction = { ...action };
 

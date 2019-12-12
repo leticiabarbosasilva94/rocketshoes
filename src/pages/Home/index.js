@@ -31,19 +31,19 @@ export default function Home() {
     getData();
   }, []);
 
-  function handleAddToCart(product) {
-    dispatch(cartActions.addToCartRequest(product));
+  function handleAddToCart(product, index) {
+    dispatch(cartActions.addToCartRequest(product, index));
   }
 
   return (
     <ProductList>
-      {products.map(product => (
+      {products.map((product, index) => (
         <li key={String(product.id)}>
           <img src={product.image} alt={product.title} />
           <strong>{product.title}</strong>
           <span>{product.formatedPrice}</span>
 
-          <button type="button" onClick={() => handleAddToCart(product)}>
+          <button type="button" onClick={() => handleAddToCart(product, index)}>
             <div>
               <MdAddShoppingCart size={16} color="#FFF" />{' '}
               {amountInCart[Number(product.id)] || 0}
